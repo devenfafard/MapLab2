@@ -5,9 +5,11 @@ class Location
 {
 	private:
 		std::string _name;
+		int _x;
+		int _y;
 
 	public:
-		Location(std::string name);
+		Location(std::string name, int x, int y);
 		~Location();
 
 		Location *North = nullptr;
@@ -15,6 +17,10 @@ class Location
 		Location *East = nullptr;
 		Location *West = nullptr;
 
-		std::string getName();
+		std::string GetName();
+		void DisplayLocationInfo();
+
+		int GetXPos() { return _x; }
+		int GetYPos() { return _y; }
 };
 

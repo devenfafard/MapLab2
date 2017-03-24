@@ -1,16 +1,24 @@
+#include <iostream>
 #include "Location.h"
+using namespace std;
 
 
-Location::Location(std::string name) : _name(name)
+Location::Location(string name, int x, int y)
 {
+	_name = name;
+	_x = x;
+	_y = y;
 }
 
+Location::~Location() {}
 
-Location::~Location()
-{
-}
-
-std::string Location::getName()
+string Location::GetName()
 {
 	return _name;
 }
+
+void Location::DisplayLocationInfo()
+{
+	cout << _name << " -- (" << this->GetXPos() << ", " << this->GetYPos() << ")." << endl;
+}
+

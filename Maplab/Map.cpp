@@ -1,35 +1,62 @@
 #include "Map.h"
+using namespace std;
 
-
-void Map::Move(Location *newLocation)
+Map::Map(string startingLocationName)
 {
+	string hash = "(0,0)";
+	_currentLocation = new Location(startingLocationName, 0, 0);
+	_mapLookup[hash] = _currentLocation;
+}
+
+Map::~Map() {}
+
+void Map::Move(Location* newLocation)
+{
+	string hash = "(" + to_string(_currentLocation->GetXPos()) + ", " 
+					  + std::to_string(_currentLocation->GetYPos()) + ")";
+	pair <string, Location*> newEntry(hash, _currentLocation);
+	_mapLookup.insert(newEntry);
 	_locationsVisited.push(newLocation);
 	_currentLocation = newLocation;
 }
 
-std::string Map::getPathBackToHome()
+string Map::GetPathBackToHome()
 {
 	//TO-DO!
-	std::string path = _currentLocation->getName();
+	string path;
 
-	if (_locationsVisited.size > 0)
+	/*if (_locationsVisited.top() == _mapLookup.find((0, 0));
 	{
-		for (int i = 0; i < _locationsVisited.size(); i++)
-		{
-			//path += _locationsVisited
-
-		}
+		path = "You're already at home!";
 	}
+	/*else
+	{
+		while (_locationsVisited.size() != 0)
+		{
+			path += _locationsVisited.top()->GetName() + " --> ";
+			_locationsVisited.pop();
+		}
+	}*/
 	
-	return std::string();
+
+	/*if (_locationsVisited.top() == _mapLookup[0, 0])
+	{
+		path = "You're already at home!";
+	}
+	else
+	{
+		while (_locationsVisited.top() != _mapLookup[0, 0] && _locationsVisited.size() != 0)
+		{
+			path += _locationsVisited.top()->GetName() + " --> ";
+			_locationsVisited.pop();
+		}
+	}*/
+	
+	return path;
 }
 
-Map::Map(std::string startingLocationName)
+Location* Map::LookupLocationOnMap(int x, int y)
 {
-	_currentLocation = new Location(startingLocationName);
-}
-
-
-Map::~Map()
-{
+	string hash = "(" + to_string(x) + ", " + std::to_string(y) + ")";
+	return _mapLookup[hash];
 }

@@ -1,18 +1,22 @@
 #pragma once
-#include "Location.h"
 #include <stack>
+#include <unordered_map>
+#include "Location.h"
 
 class Map
 {
 	private:
 		std::stack<Location*> _locationsVisited;
+		std::unordered_map<std::string, Location*> _mapLookup;
 
 	public:
-		Location *_currentLocation = nullptr;
-		void Move(Location *newLocation);
-		std::string getPathBackToHome();
 		Map(std::string startingLocationName);
-		~Map();	
-	
+		~Map();
+
+		Location* _currentLocation = nullptr;
+		Location* LookupLocationOnMap(int x, int y);
+
+		std::string GetPathBackToHome();
+		void Move(Location* newLocation);
 };
 
