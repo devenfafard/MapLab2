@@ -37,7 +37,7 @@ int main()
 			case 6: 
 				system("cls");  
 				cout << "Here's how to get back to home: " << endl
-					<< map.GetPathBackToHome() << endl
+					<< map.GetPathBackToHome() 
 					<< "HOME"; 
 				break;
 			default: cout << "Enter a valid option" << endl; break;

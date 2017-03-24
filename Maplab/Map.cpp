@@ -5,6 +5,7 @@ Map::Map(string startingLocationName)
 {
 	string hash = "(0,0)";
 	_currentLocation = new Location(startingLocationName, 0, 0);
+	_locationsVisited.push(_currentLocation);
 	_mapLookup[hash] = _currentLocation;
 }
 
@@ -14,8 +15,7 @@ void Map::Move(Location* newLocation)
 {
 	string hash = "(" + to_string(_currentLocation->GetXPos()) + ", " 
 					  + std::to_string(_currentLocation->GetYPos()) + ")";
-	pair <string, Location*> newEntry(hash, _currentLocation);
-	_mapLookup.insert(newEntry);
+	_mapLookup[hash] = _currentLocation;
 	_locationsVisited.push(newLocation);
 	_currentLocation = newLocation;
 }
@@ -25,10 +25,17 @@ string Map::GetPathBackToHome()
 	//TO-DO!
 	string path;
 
-	/*if (_locationsVisited.top() == _mapLookup.find((0, 0));
+	/*if (_locationsVisited.top() == _mapLookup[(0,0)]);
 	{
 		path = "You're already at home!";
+	}*/
+
+	while (_locationsVisited.size() != 0)
+	{
+		path += _locationsVisited.top()->GetName() + " --> ";
+		_locationsVisited.pop();
 	}
+	
 	/*else
 	{
 		while (_locationsVisited.size() != 0)
